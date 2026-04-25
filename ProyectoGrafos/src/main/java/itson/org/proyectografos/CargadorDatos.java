@@ -37,6 +37,17 @@ public class CargadorDatos {
         lista.add(new Localidad("Las Rosas", 380, 349));       
         lista.add(new Localidad("Teopisca", 356, 309));    
         
+        lista.add(new Localidad("Suchiapa", 0,0));
+        lista.add(new Localidad("Mapastepec", 0,0));
+        lista.add(new Localidad("Cacahoatán", 0,0));
+        lista.add(new Localidad("Yajalón", 0,0));
+        lista.add(new Localidad("Pijijiapan", 0,0));
+        lista.add(new Localidad("Ciudad Hidalgo", 0,0));
+        lista.add(new Localidad("Venustiano Carranza", 0,0));
+        lista.add(new Localidad("Pichucalco", 0,0));
+        lista.add(new Localidad("Acala", 0,0));
+        lista.add(new Localidad("Simojovel de Allende", 0,0));
+        
         return lista;
     }
 
