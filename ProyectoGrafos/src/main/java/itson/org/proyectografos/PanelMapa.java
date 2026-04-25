@@ -65,6 +65,8 @@ public class PanelMapa extends JPanel {
         // PASO A: Dibujar la imagen de fondo primero (Capas inferiores)
         if (imagenFondo != null) {
             // Dibujamos la imagen escalada para que ocupe todo el panel
+            System.out.println(getWidth());
+            System.out.println(getHeight());
             g2d.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
 

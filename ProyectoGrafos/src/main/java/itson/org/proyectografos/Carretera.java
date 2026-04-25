@@ -14,11 +14,13 @@ public class Carretera {
     public Localidad origen;
     public Localidad destino;
     public Color colorActual;
+    public double peso;
     public int grosor = 4;
     
-    public Carretera(Localidad origen, Localidad destino) {
+    public Carretera(Localidad origen, Localidad destino, double peso) {
         this.origen = origen;
         this.destino = destino;
+        this.peso = peso;
         this.colorActual = new Color(100, 100, 100, 150); // Gris semi-transparente
     }
     
@@ -27,5 +29,47 @@ public class Carretera {
         g2d.setStroke(new BasicStroke(grosor, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2d.drawLine(origen.x, origen.y, destino.x, destino.y);
     }
+
+    public Localidad getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(Localidad origen) {
+        this.origen = origen;
+    }
+
+    public Localidad getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Localidad destino) {
+        this.destino = destino;
+    }
+
+    public Color getColorActual() {
+        return colorActual;
+    }
+
+    public void setColorActual(Color colorActual) {
+        this.colorActual = colorActual;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public int getGrosor() {
+        return grosor;
+    }
+
+    public void setGrosor(int grosor) {
+        this.grosor = grosor;
+    }
+    
+    
     
 }

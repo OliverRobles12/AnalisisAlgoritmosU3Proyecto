@@ -1,6 +1,7 @@
 
 package itson.org.proyectografos.presentacion;
 
+import itson.org.proyectografos.CargadorDatos;
 import itson.org.proyectografos.Carretera;
 import itson.org.proyectografos.Controlador;
 import itson.org.proyectografos.Localidad;
@@ -24,17 +25,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private List<Carretera> carreteras;
     
     public VentanaPrincipal(Controlador control) {
-        this.control = new Controlador();
-        this.setTitle("Grafos Chiapas: Localidades y Carreteras Internacionales");
-        this.setSize(1400, 1000); 
-        this.revalidate();
+        this.control = control;
         initComponents();
-        
-        inicializarDatosMock();
-        
-        panelMapa = new PanelMapa(localidades, carreteras);
-        this.add(panelMapa);
-        
+
+        // Cargamos los datos de Chiapas
+        this.localidades = CargadorDatos.cargarLocalidades();
+        this.carreteras = CargadorDatos.cargarCarreteras(this.localidades);
+
+        // Inicializamos el panel con los datos reales
+        panelMapa = new PanelMapa(this.localidades, this.carreteras);
+
+        // Agregamos al centro de la ventana
+        this.add(panelMapa, java.awt.BorderLayout.CENTER);
+        this.revalidate();
     }
 
     private void inicializarDatosMock() {
@@ -56,10 +59,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         localidades.add(palenque);
 
         // Carreteras aproximadas
-        carreteras.add(new Carretera(tuxtla, sanCristobal));
-        carreteras.add(new Carretera(sanCristobal, comitan));
-        carreteras.add(new Carretera(tuxtla, tapachula)); // Costera aprox
-        carreteras.add(new Carretera(sanCristobal, palenque));
+//        carreteras.add(new Carretera(tuxtla, sanCristobal));
+//        carreteras.add(new Carretera(sanCristobal, comitan));
+//        carreteras.add(new Carretera(tuxtla, tapachula)); // Costera aprox
+//        carreteras.add(new Carretera(sanCristobal, palenque));
     }
     
     private void iniciarSimulacion() {
@@ -112,7 +115,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(236, 231, 206));
-        setPreferredSize(new java.awt.Dimension(1400, 1000));
+        setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
