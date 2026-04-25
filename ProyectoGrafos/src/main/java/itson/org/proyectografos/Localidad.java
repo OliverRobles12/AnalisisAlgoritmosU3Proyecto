@@ -15,7 +15,7 @@ public class Localidad {
     public String nombre;
     public int x, y; // Cordenadas en pixeles
     public Color colorActual;
-    public int radio = 12;
+    public int radio = 8;
     public double distanciaMinima = Double.MAX_VALUE; // Para Dijkstra
     public Localidad antecesor; // Para reconstruir el camino
     public boolean visitado = false; // Para BFS/DFS
@@ -35,13 +35,14 @@ public class Localidad {
         
         // Borde del círculo
         g2d.setColor(Color.BLACK);
-        g2d.setStroke(new BasicStroke(2));
+        // Un grosor de 1.5 o 2 se ve bien con círculos pequeños
+        g2d.setStroke(new BasicStroke(1.5f)); 
         g2d.drawOval(x - radio, y - radio, radio * 2, radio * 2);
 
         // Nombre de la localidad
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.BOLD, 12));
-        g2d.drawString(nombre, x + radio + 5, y + 5);
+        g2d.setFont(new Font("Arial", Font.BOLD, 11)); 
+        g2d.drawString(nombre, x + radio + 4, y + 4); 
     }
     
     public void reiniciar() {

@@ -39,31 +39,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.add(panelMapa, java.awt.BorderLayout.CENTER);
         this.revalidate();
     }
-
-    private void inicializarDatosMock() {
-        localidades = new ArrayList<>();
-        carreteras = new ArrayList<>();
-
-        // NOTA: Estas coordenadas (X, Y) son FICTICIAS. 
-        // Deberán ajustarlas para que coincidan con los puntos reales en SU imagen de mapa.
-        Localidad tuxtla = new Localidad("Tuxtla G.", 300, 400);
-        Localidad tapachula = new Localidad("Tapachula", 700, 700);
-        Localidad sanCristobal = new Localidad("San Cristóbal", 500, 450);
-        Localidad comitan = new Localidad("Comitán", 650, 550);
-        Localidad palenque = new Localidad("Palenque", 800, 200);
-
-        localidades.add(tuxtla);
-        localidades.add(tapachula);
-        localidades.add(sanCristobal);
-        localidades.add(comitan);
-        localidades.add(palenque);
-
-        // Carreteras aproximadas
-//        carreteras.add(new Carretera(tuxtla, sanCristobal));
-//        carreteras.add(new Carretera(sanCristobal, comitan));
-//        carreteras.add(new Carretera(tuxtla, tapachula)); // Costera aprox
-//        carreteras.add(new Carretera(sanCristobal, palenque));
-    }
     
     private void iniciarSimulacion() {
         new Thread(() -> {

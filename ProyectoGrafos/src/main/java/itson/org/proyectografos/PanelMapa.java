@@ -22,7 +22,7 @@ public class PanelMapa extends JPanel {
 
     private static final Logger LOG = Logger.getLogger(PanelMapa.class.getName());
     
-    private final URL urlImagen = getClass().getResource("/mapa_chiapas_contorno_carreteras.png");
+    private final URL urlImagen = getClass().getResource("/mapa_chiapas_contorno.png");
     
     private BufferedImage imagenFondo;
     private List<Localidad> localidades;
@@ -65,8 +65,6 @@ public class PanelMapa extends JPanel {
         // PASO A: Dibujar la imagen de fondo primero (Capas inferiores)
         if (imagenFondo != null) {
             // Dibujamos la imagen escalada para que ocupe todo el panel
-            System.out.println(getWidth());
-            System.out.println(getHeight());
             g2d.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
 
