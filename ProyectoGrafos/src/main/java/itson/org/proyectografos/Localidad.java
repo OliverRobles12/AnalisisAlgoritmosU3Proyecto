@@ -25,7 +25,7 @@ public class Localidad {
         this.nombre = nombre;
         this.x = x;
         this.y = y;
-        this.colorActual = new Color(0, 100, 255, 200); // Azul semi-transparente por defecto
+        this.colorActual = Color.decode("#f3e3b9"); // Azul semi-transparente por defecto
     }
     
     public void dibujar(Graphics2D g2d) {
