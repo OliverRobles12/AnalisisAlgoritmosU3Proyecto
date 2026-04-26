@@ -222,6 +222,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Matriz ");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel7MouseEntered(evt);
             }
@@ -447,6 +450,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
         jLabel7.setForeground(Color.BLACK);
     }//GEN-LAST:event_jLabel7MouseExited
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        if (panelMapa != null) {
+            boolean estadoActual = panelMapa.isMostrarMatriz();
+            panelMapa.setMostrarMatriz(!estadoActual);
+        }
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

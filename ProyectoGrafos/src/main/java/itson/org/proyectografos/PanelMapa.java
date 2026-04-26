@@ -2,11 +2,9 @@ package itson.org.proyectografos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,13 +15,10 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,8 +31,9 @@ public class PanelMapa extends JPanel {
     private List<Localidad> localidades;
     private List<Carretera> carreteras;
     private boolean mostrarTabla = false;
-    
     private JPanel panelContenedorTablas;
+    private boolean mostrarMatriz = false;
+    private JPanel panelContenedorMatriz;
 
     public PanelMapa(List<Localidad> localidades, List<Carretera> carreteras) {        
         this.localidades = localidades;
@@ -45,6 +41,7 @@ public class PanelMapa extends JPanel {
         cargarImagen();
         this.setLayout(new BorderLayout());
         crearTablasNodosYAristas();
+        crearTablaMatriz();
     }
     
     private void crearTablasNodosYAristas() {
@@ -59,8 +56,13 @@ public class PanelMapa extends JPanel {
         lblNodos.setForeground(Color.WHITE);
         lblNodos.setAlignmentX(CENTER_ALIGNMENT);
         
-        String[] colsNodos = {"#", "Nombre Localidad", "Coordenada X", "Coordenada Y"};
-        DefaultTableModel modelNodos = new DefaultTableModel(colsNodos, 0);
+        String[] colsNodos = {"Nombre Localidad", "Coordenada X", "Coordenada Y"};
+        DefaultTableModel modelNodos = new DefaultTableModel(colsNodos, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
         
         for (int i = 0; i < localidades.size(); i++) {
             Localidad loc = localidades.get(i);
@@ -68,23 +70,27 @@ public class PanelMapa extends JPanel {
             int x = loc.getX();
             int y = loc.getY();
             
-            modelNodos.addRow(new Object[]{i + 1, nombre, x, y});
+            modelNodos.addRow(new Object[]{i, nombre, x, y});
         }
         JTable tablaNodos = new JTable(modelNodos);
         darEstiloTabla(tablaNodos);
         
         JScrollPane scrollNodos = new JScrollPane(tablaNodos);
         scrollNodos.setBorder(BorderFactory.createEmptyBorder());
-        scrollNodos.getViewport().setBackground(Color.WHITE);
-        aplicarEstiloScroll(scrollNodos); 
+        scrollNodos.getViewport().setBackground(Color.WHITE); 
         
         JLabel lblAristas = new JLabel("TABLA DE CARRETERAS");
         lblAristas.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lblAristas.setForeground(Color.WHITE);
         lblAristas.setAlignmentX(CENTER_ALIGNMENT);
         
-        String[] colsAristas = {"#", "Origen", "Destino", "Distancia"};
-        DefaultTableModel modelAristas = new DefaultTableModel(colsAristas, 0);
+        String[] colsAristas = {"Origen", "Destino", "Distancia"};
+        DefaultTableModel modelAristas = new DefaultTableModel(colsAristas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
         
         for (int i = 0; i < carreteras.size(); i++) {
             Carretera car = carreteras.get(i);
@@ -93,7 +99,7 @@ public class PanelMapa extends JPanel {
             String destino = car.getDestino().getNombre();
             double peso = car.getPeso();
             
-            modelAristas.addRow(new Object[]{i + 1, origen, destino, peso + " km"});
+            modelAristas.addRow(new Object[]{origen, destino, peso + " km"});
         }
         JTable tablaAristas = new JTable(modelAristas);
         darEstiloTabla(tablaAristas);
@@ -101,7 +107,6 @@ public class PanelMapa extends JPanel {
         JScrollPane scrollAristas = new JScrollPane(tablaAristas);
         scrollAristas.setBorder(BorderFactory.createEmptyBorder()); 
         scrollAristas.getViewport().setBackground(Color.WHITE);
-        aplicarEstiloScroll(scrollAristas); 
         
         panelTablas.add(Box.createVerticalStrut(10)); 
         panelTablas.add(lblNodos);
@@ -116,8 +121,7 @@ public class PanelMapa extends JPanel {
         panelContenedorTablas = panelTablas;
         panelContenedorTablas.setVisible(false); 
         
-        this.add(panelContenedorTablas, BorderLayout.CENTER);
-    }
+            }
     
     private void cargarImagen() {
         try {
@@ -141,7 +145,7 @@ public class PanelMapa extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (mostrarTabla) {
+        if (mostrarTabla || mostrarMatriz) {
             return;
         }
         
@@ -165,12 +169,25 @@ public class PanelMapa extends JPanel {
         return mostrarTabla;
     }
     
-    public void setMostrarTabla(boolean mostrarTabla) {
-        this.mostrarTabla = mostrarTabla;
-        if (panelContenedorTablas != null) {
-            panelContenedorTablas.setVisible(mostrarTabla);
+    public void setMostrarTabla(boolean mostrar) {
+        this.mostrarTabla = mostrar;
+        
+        if (mostrarTabla) {
+            this.mostrarMatriz = false; 
+            if (panelContenedorMatriz != null) {
+                this.remove(panelContenedorMatriz); 
+            }
+            this.add(panelContenedorTablas, BorderLayout.CENTER);
+            panelContenedorTablas.setVisible(true);
+        } else {
+            if (panelContenedorTablas != null) {
+                this.remove(panelContenedorTablas);
+                panelContenedorTablas.setVisible(false);
+            }
         }
-        this.repaint(); 
+        
+        this.revalidate(); 
+        this.repaint();
     }
     
     private void darEstiloTabla(JTable tabla) {
@@ -195,45 +212,105 @@ public class PanelMapa extends JPanel {
         ((DefaultTableCellRenderer)tabla.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
     }
     
-    private void aplicarEstiloScroll(JScrollPane scroll) {
-        scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-           
+    
+    private void crearTablaMatriz() {
+        JPanel panelMatriz = new JPanel();
+        panelMatriz.setLayout(new BoxLayout(panelMatriz, BoxLayout.Y_AXIS));
+        panelMatriz.setBackground(Color.decode("#f3e3b9"));
+        panelMatriz.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30)); 
+        
+        JLabel lblMatriz = new JLabel("MATRIZ DE ADYACENCIA");
+        lblMatriz.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblMatriz.setForeground(Color.WHITE);
+        lblMatriz.setAlignmentX(CENTER_ALIGNMENT);
+        
+        int n = localidades.size();
+        
+        String[] columnas = new String[n + 1];
+        columnas[0] = "Localidad";
+        for (int i = 0; i < n; i++) {
+            columnas[i + 1] = localidades.get(i).getNombre();
+        }
+        
+        DefaultTableModel modelMatriz = new DefaultTableModel(columnas, 0) {
             @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return crearBotonInvisible();
+            public boolean isCellEditable(int row, int column) {
+                return false; 
             }
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return crearBotonInvisible();
+        };
+        
+        String[][] matrizValores = new String[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrizValores[i][j] = (i == j) ? "-" : "-";
             }
-            @Override
-            protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-                if (thumbBounds.isEmpty() || !scrollbar.isEnabled()) {
-                    return;
-                }
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(Color.decode("#c9a163"));
-                g2.fillRoundRect(thumbBounds.x + 2, thumbBounds.y + 2, thumbBounds.width - 4, thumbBounds.height - 4, 10, 10);
-                g2.dispose();
+        }
+        
+        for (Carretera car : carreteras) {
+            int origenIdx = localidades.indexOf(car.getOrigen());
+            int destinoIdx = localidades.indexOf(car.getDestino());
+            
+            if (origenIdx != -1 && destinoIdx != -1) {
+                String peso = String.valueOf(car.getPeso());
+                matrizValores[origenIdx][destinoIdx] = peso;
+                matrizValores[destinoIdx][origenIdx] = peso;
             }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            Object[] fila = new Object[n + 1];
+            fila[0] = localidades.get(i).getNombre(); 
+            for (int j = 0; j < n; j++) {
+                fila[j + 1] = matrizValores[i][j];
+            }
+            modelMatriz.addRow(fila);
+        }
+        
+        JTable tablaMatriz = new JTable(modelMatriz);
+        tablaMatriz.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        darEstiloTabla(tablaMatriz);
 
-            @Override
-            protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setColor(Color.decode("#f3e3b9")); 
-                g2.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
-                g2.dispose();
+        tablaMatriz.getColumnModel().getColumn(0).setPreferredWidth(150);
+        
+        JScrollPane scrollMatriz = new JScrollPane(tablaMatriz);
+        scrollMatriz.setBorder(BorderFactory.createEmptyBorder());
+        scrollMatriz.getViewport().setBackground(Color.WHITE);
+        
+        panelMatriz.add(Box.createVerticalStrut(10)); 
+        panelMatriz.add(lblMatriz);
+        panelMatriz.add(Box.createVerticalStrut(15));
+        panelMatriz.add(scrollMatriz);
+        panelMatriz.add(Box.createVerticalStrut(10)); 
+        
+        panelContenedorMatriz = panelMatriz;
+        panelContenedorMatriz.setVisible(false); 
+        
+        tablaMatriz.getTableHeader().setFont(new java.awt.Font("SansSerif", java.awt.Font.PLAIN, 10));
+        
+    }
+    
+    public boolean isMostrarMatriz() {
+        return mostrarMatriz;
+    }
+    
+    public void setMostrarMatriz(boolean mostrar) {
+        this.mostrarMatriz = mostrar;
+        
+        if (mostrarMatriz) {
+            this.mostrarTabla = false; 
+            if (panelContenedorTablas != null) {
+                this.remove(panelContenedorTablas); 
             }
-           
-            private JButton crearBotonInvisible() {
-                JButton jbutton = new JButton();
-                jbutton.setPreferredSize(new Dimension(0, 0));
-                jbutton.setMinimumSize(new Dimension(0, 0));
-                jbutton.setMaximumSize(new Dimension(0, 0));
-                return jbutton;
+            this.add(panelContenedorMatriz, BorderLayout.CENTER);
+            panelContenedorMatriz.setVisible(true);
+        } else {
+            if (panelContenedorMatriz != null) {
+                this.remove(panelContenedorMatriz);
+                panelContenedorMatriz.setVisible(false);
             }
-        });
-        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(12, Integer.MAX_VALUE));
+        }
+        
+        this.revalidate(); 
+        this.repaint();    
     }
 }
