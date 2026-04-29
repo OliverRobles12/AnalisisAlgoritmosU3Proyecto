@@ -4,11 +4,15 @@ package itson.org.proyectografos.presentacion;
 import itson.org.proyectografos.CargadorDatos;
 import itson.org.proyectografos.Carretera;
 import itson.org.proyectografos.Controlador;
+import itson.org.proyectografos.Grafo;
 import itson.org.proyectografos.Localidad;
 import itson.org.proyectografos.PanelMapa;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,26 +22,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
 
-    private Controlador control;
     
     private PanelMapa panelMapa;
     private List<Localidad> localidades;
     private List<Carretera> carreteras;
+    private Grafo grafo;
+    Controlador control; 
     
-    public VentanaPrincipal(Controlador control) {
-        this.control = control;
+    public VentanaPrincipal() {
         initComponents();
 
         // Cargamos los datos de Chiapas
         this.localidades = CargadorDatos.cargarLocalidades();
         this.carreteras = CargadorDatos.cargarCarreteras(this.localidades);
+        
+        this.grafo = new Grafo(localidades, carreteras); 
+        
+        panelMapa = new PanelMapa(grafo);
+    
+        panelContenedor.add(panelMapa, java.awt.BorderLayout.CENTER);
+        this.control = new Controlador(this.grafo, this.panelMapa);
 
-        // Inicializamos el panel con los datos reales
-        panelMapa = new PanelMapa(this.localidades, this.carreteras);
-
-        // Agregamos al centro de la ventana
-        this.add(panelMapa, java.awt.BorderLayout.CENTER);
-        this.revalidate();
+        panelContenedor.revalidate();
+        panelContenedor.repaint();
     }
     
     /**
@@ -69,6 +76,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        panelContenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(236, 231, 206));
@@ -86,6 +94,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("BFS");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel4MouseEntered(evt);
             }
@@ -304,6 +315,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(panelMenuLateral, java.awt.BorderLayout.LINE_END);
 
+        panelContenedor.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(panelContenedor, java.awt.BorderLayout.CENTER);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -425,6 +439,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        JOptionPane.showMessageDialog(this, 
+        "Modo BFS activado.\nPor favor, haz clic en una ciudad del mapa para comenzar.", 
+        "Instrucciones", 
+        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+        // Se lo agregamos a panelMapa
+        panelMapa.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int clickX = e.getX();
+                int clickY = e.getY();
+
+                Localidad nodoInicio = null;
+
+                for (Localidad loc : grafo.getNodos()) {
+                    double distancia = Math.sqrt(Math.pow(clickX - loc.getX(), 2) + Math.pow(clickY - loc.getY(), 2));
+                    if (distancia <= (loc.getRadio() + 2)) {
+                        nodoInicio = loc;
+                        break; 
+                    }
+                }
+
+                if (nodoInicio != null) {              
+                    control.animarBFS(nodoInicio);
+                    panelMapa.removeMouseListener(this);
+                }
+            }
+        });
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -445,6 +490,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel panelContenedor;
     private javax.swing.JPanel panelMenuLateral;
     // End of variables declaration//GEN-END:variables
 }

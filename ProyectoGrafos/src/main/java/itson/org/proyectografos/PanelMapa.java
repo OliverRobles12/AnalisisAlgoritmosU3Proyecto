@@ -35,13 +35,14 @@ public class PanelMapa extends JPanel {
     private boolean mostrarMatriz = false;
     private JPanel panelContenedorMatriz;
 
-    public PanelMapa(List<Localidad> localidades, List<Carretera> carreteras) {        
-        this.localidades = localidades;
-        this.carreteras = carreteras;
+    public PanelMapa(Grafo grafo) {        
+        this.localidades = grafo.getNodos();
+        this.carreteras = grafo.getAristas();
         cargarImagen();
         this.setLayout(new BorderLayout());
         crearTablasNodosYAristas();
         crearTablaMatriz();
+        this.setPreferredSize(new java.awt.Dimension(850, 650));
     }
     
     private void crearTablasNodosYAristas() {

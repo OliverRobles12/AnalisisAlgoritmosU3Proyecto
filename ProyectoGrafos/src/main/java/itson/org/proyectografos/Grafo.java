@@ -6,10 +6,8 @@ package itson.org.proyectografos;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -71,7 +69,7 @@ public class Grafo {
      * @param s localidad inicial desde donde comenzará el recorrido BFS.
      * @return lista de localidades en el orden en que fueron visitadas.
      */
-    public List<Localidad> recorridoBFS(Localidad s) {    
+    public List<Localidad> recorridoBFS(Localidad s, Runnable actualizacionVisual) {    
         // Lista que guarda el resultado final para mandarlo a la interfaz grafica
         List<Localidad> ordenVisitados = new ArrayList<>();
         
@@ -84,11 +82,17 @@ public class Grafo {
             u.setDistanciaMinima(Double.MAX_VALUE); 
             u.setAntecesor(null);
         }
+        
+        // Avisamos a la interfaz que tome foto del mapa en blanco
+        if (actualizacionVisual != null) actualizacionVisual.run();
 
         // Marcamos el punto de partida
         s.setColorActual(Color.GRAY); // Gris indica que ya fue visitado pero no todos sus vecinos
         s.setDistanciaMinima(0); // Como es el nodo fuente su distancia es de 0
         Q.add(s);
+        
+        // Avisamos a la interfaz que tome foto del origen en gris
+        if (actualizacionVisual != null) actualizacionVisual.run();
 
         while (!Q.isEmpty()) {
             Localidad u = Q.poll();
@@ -105,11 +109,15 @@ public class Grafo {
                     v.setAntecesor(u);
                     // por ultimo lo agregamos a la cola para poder encontrar a todos sus vecinos
                     Q.add(v);
+                    // Avisamos a la interfaz que tome foto del vecino en gris
+                    if (actualizacionVisual != null) actualizacionVisual.run();
                 }
             }
             
             // Cuando se termina de revisar todos los vecinos de un nodo, el color se actualiza a negro.
             u.setColorActual(Color.BLACK);
+            // Avisamos a la interfaz que tome foto del nodo negro
+            if (actualizacionVisual != null) actualizacionVisual.run();
         }
 
         return ordenVisitados;

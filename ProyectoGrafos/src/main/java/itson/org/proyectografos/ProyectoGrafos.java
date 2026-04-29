@@ -11,8 +11,7 @@ public class ProyectoGrafos {
 
     public static void main(String[] args) {
         
-        Controlador ctrl = new Controlador();
-        VentanaPrincipal vista = new VentanaPrincipal(ctrl);
+        VentanaPrincipal vista = new VentanaPrincipal();
         vista.setVisible(true);
         
     }
