@@ -12,6 +12,7 @@ public class Controlador {
 
     private PanelMapa panelMapa;
     private List<Localidad> localidades;
+    private List<Carretera> carreteras;
     
     public Controlador() {
         

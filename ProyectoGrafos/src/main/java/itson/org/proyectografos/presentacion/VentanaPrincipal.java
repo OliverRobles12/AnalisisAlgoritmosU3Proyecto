@@ -40,40 +40,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.revalidate();
     }
     
-    private void iniciarSimulacion() {
-        new Thread(() -> {
-            try {
-                // Paso 1: Reseteamos colores
-                for(Localidad l : localidades) l.colorActual = new Color(0, 100, 255, 200);
-                for(Carretera c : carreteras) c.colorActual = new Color(100, 100, 100, 150);
-                panelMapa.repaint();
-                Thread.sleep(1000);
-
-                // Paso 2: Visitamos Tuxtla
-                Localidad tuxtla = localidades.get(0);
-                tuxtla.colorActual = Color.RED; // Color de 'visitado'
-                panelMapa.repaint();
-                Thread.sleep(800);
-
-                // Paso 3: Recorremos la carretera Tuxtla -> San Cristóbal
-                Carretera c1 = carreteras.get(0);
-                c1.colorActual = Color.GREEN; // Color de 'activo'
-                c1.grosor = 6;
-                panelMapa.repaint();
-                Thread.sleep(800);
-
-                // Paso 4: Llegamos a San Cristóbal
-                Localidad sc = localidades.get(2);
-                sc.colorActual = Color.RED;
-                panelMapa.repaint();
-                Thread.sleep(800);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
