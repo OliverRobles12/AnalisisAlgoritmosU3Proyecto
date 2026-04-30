@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Controlador {
 
-    public final Integer TIEMPO_ESPERA = 100;
+    public final Integer TIEMPO_ESPERA = 600;
     
     private PanelMapa panelMapa;
     private Grafo grafo;

@@ -325,7 +325,7 @@ public class Algoritmos {
         
         // Pintamos el nodo actual indicando que ya encontramos su distancia más corta
         if (actual != inicio) {
-            actual.setColorActual(Color.GREEN); 
+            actual.setColorActual(Color.decode("#f3e3b9")); 
         }
         actualizacionVisual.run();
 
@@ -337,7 +337,7 @@ public class Algoritmos {
             if (!vecino.isVisitado()) {
                 // Resaltamos la arista que estamos evaluando
                 Color colorPrevio = carretera.getColorActual();
-                carretera.setColorActual(Color.BLACK);
+                carretera.setColorActual(Color.BLUE);
                 actualizacionVisual.run();
 
                 double nuevaDistancia = actual.getDistanciaMinima() + carretera.getPeso();
@@ -349,7 +349,7 @@ public class Algoritmos {
                     pq.add(vecino); // Agregamos a la cola con su nueva prioridad
                     
                     // Pintamos la arista para mostrar que forma parte de la ruta más corta actual
-                    carretera.setColorActual(Color.BLUE);
+                    carretera.setColorActual(Color.decode("#c9a163"));
                 } else {
                     // Si no mejoró la ruta, regresamos la carretera a su color anterior
                     carretera.setColorActual(colorPrevio);
