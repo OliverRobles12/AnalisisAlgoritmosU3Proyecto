@@ -26,13 +26,35 @@ public class Controlador {
         // Creamos un hilo 
         new Thread(() -> {
             // Llamada al método estático de la nueva clase
-            Algoritmos.recorridoBFS(grafo, inicio, () -> {
+            List<Localidad> recorrido = Algoritmos.recorridoBFS(grafo, inicio, () -> {
                 panelMapa.repaint(); 
                 try {
                     Thread.sleep(600);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }              
+            });
+            
+            StringBuilder reporte = new StringBuilder();
+            reporte.append("==================================================\n");
+            reporte.append("            RECORRIDO EN ANCHURA (BFS)            \n");
+            reporte.append("==================================================\n");
+            reporte.append("Punto de partida: ").append(inicio.getNombre()).append("\n");
+            reporte.append("--------------------------------------------------\n");
+            reporte.append(String.format("%-10s %-30s\n", "PASO", "CIUDAD VISITADA"));
+            reporte.append("--------------------------------------------------\n");
+            
+            for (int i = 0; i < recorrido.size(); i++) {
+                reporte.append(String.format("%-10d %-30s\n", (i + 1), recorrido.get(i).getNombre()));
+            }
+            
+            reporte.append("==================================================\n");
+            reporte.append("Nodos totales visitados: ").append(recorrido.size()).append("\n");
+
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                itson.org.proyectografos.presentacion.VentanaReporte ventana = 
+                    new itson.org.proyectografos.presentacion.VentanaReporte("Reporte BFS", reporte.toString());
+                ventana.setVisible(true);
             });
         }).start();
     }  
