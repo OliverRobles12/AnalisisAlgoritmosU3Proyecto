@@ -136,6 +136,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Dijkstra");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel10MouseEntered(evt);
             }
@@ -513,6 +516,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         control.animarKruskal();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        JOptionPane.showMessageDialog(this, 
+        "Modo DIJKSTRA activado.\nPor favor, haz clic en una ciudad del mapa para comenzar el recorrido de ruta mas corta.", 
+        "Instrucciones", 
+        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+        panelMapa.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int clickX = e.getX();
+                int clickY = e.getY();
+                Localidad nodoInicio = null;
+
+                for (Localidad loc : grafo.getNodos()) {
+                    double distancia = Math.sqrt(Math.pow(clickX - loc.getX(), 2) + Math.pow(clickY - loc.getY(), 2));
+                    if (distancia <= (loc.getRadio() + 2)) {
+                        nodoInicio = loc;
+                        break; 
+                    }
+                }
+
+                if (nodoInicio != null) {              
+                    control.animarDijkstra(nodoInicio); // Llamamos al DFS
+                    panelMapa.removeMouseListener(this);
+                }
+            }
+        });
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

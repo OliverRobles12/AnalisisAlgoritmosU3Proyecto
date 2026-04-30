@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -276,6 +278,89 @@ public class Algoritmos {
 //    7         for each vertex v ∈ Adj[u] -> Por cada vertice adyacente al vertice u:
 //    8             do RELAX(u, v, w)       -> Relaaax, se aplica entre u y v, usando el peso de su carretera
     
+    /**
+     * Ejecutamos el algoritmo de DIJKSTRA, representamos visualmente en el grafo y regresamos las distancias minimas
+     * para llegar a cada vertice desde la raiz
+     * @param grafo El grafo con las localidades y carreteras.
+     * @param inicio La localidad de origen.
+     * @param actualizacionVisual 
+     */
+    public static Map<Localidad, Double> dijkstra(Grafo grafo, Localidad inicio, Runnable actualizacionVisual) {
+    // Mapa para guardar las distancias finales ordenadas
+    Map<Localidad, Double> distanciasMap = new LinkedHashMap<>();
+
+    // 1. Preparacion visual 
+    for (Localidad loc : grafo.getNodos()) {
+        loc.reiniciar(); 
+        loc.setColorActual(Color.WHITE);
+    }
+    
+    for (Carretera carr : grafo.getAristas()) {
+        carr.setColorActual(new Color(150, 150, 150, 128)); 
+    }
+
+    // 2. Configurar el nodo de inicio
+    inicio.setDistanciaMinima(0);
+    inicio.setColorActual(Color.RED); 
+    actualizacionVisual.run();
+
+    // 3. Cola de prioridad ordenada por la distancia mínima acumulada
+    PriorityQueue<Localidad> pq = new PriorityQueue<>(
+            Comparator.comparingDouble(Localidad::getDistanciaMinima)
+    );
+    pq.add(inicio);
+
+    // 4. Ciclo principal de Dijkstra
+    while (!pq.isEmpty()) {
+        Localidad actual = pq.poll();
+
+        // Si ya fue procesado con un camino más corto, lo ignoramos
+        if (actual.isVisitado()) continue;
+        
+        // Lo marcamos como visitado
+        actual.setVisitado(true);
+        
+        // Agregamos el nodo y su distancia al mapa dde resultados
+        distanciasMap.put(actual, actual.getDistanciaMinima());
+        
+        // Pintamos el nodo actual indicando que ya encontramos su distancia más corta
+        if (actual != inicio) {
+            actual.setColorActual(Color.GREEN); 
+        }
+        actualizacionVisual.run();
+
+        // Exploramos las carreteras adyacentes
+        for (Carretera carretera : grafo.obtenerCarreterasAdyacentes(actual)) {
+            // En la carretera ubicamos cual es el nodo vecino
+            Localidad vecino = (carretera.getOrigen().equals(actual)) ? carretera.getDestino() : carretera.getOrigen();
+
+            if (!vecino.isVisitado()) {
+                // Resaltamos la arista que estamos evaluando
+                Color colorPrevio = carretera.getColorActual();
+                carretera.setColorActual(Color.BLACK);
+                actualizacionVisual.run();
+
+                double nuevaDistancia = actual.getDistanciaMinima() + carretera.getPeso();
+
+                // Relajación de la arista, si encontramos un camino mas corto
+                if (nuevaDistancia < vecino.getDistanciaMinima()) {
+                    vecino.setDistanciaMinima(nuevaDistancia);
+                    vecino.setAntecesor(actual);
+                    pq.add(vecino); // Agregamos a la cola con su nueva prioridad
+                    
+                    // Pintamos la arista para mostrar que forma parte de la ruta más corta actual
+                    carretera.setColorActual(Color.BLUE);
+                } else {
+                    // Si no mejoró la ruta, regresamos la carretera a su color anterior
+                    carretera.setColorActual(colorPrevio);
+                }
+                actualizacionVisual.run();
+            }
+        }
+    }
+    // 5. Retornamos el mapa con los resultados finales
+    return distanciasMap;
+}
     
     // MÉTODOS AUXILIARES
     
