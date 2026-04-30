@@ -3,7 +3,7 @@ package itson.org.proyectografos.presentacion;
 
 import itson.org.proyectografos.CargadorDatos;
 import itson.org.proyectografos.Carretera;
-import itson.org.proyectografos.Controlador;
+import itson.org.proyectografos.controlador.Controlador;
 import itson.org.proyectografos.Grafo;
 import itson.org.proyectografos.Localidad;
 import itson.org.proyectografos.PanelMapa;
@@ -60,7 +60,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelMenuLateral = new javax.swing.JPanel();
         panelBotones = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblDfs = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -105,20 +105,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("DFS");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDfs.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDfs.setText("DFS");
+        lblDfs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDfsMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
+                lblDfsMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
+                lblDfsMouseExited(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Krustal");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel6MouseEntered(evt);
             }
@@ -233,7 +239,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDfs, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -252,7 +258,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(lblDfs)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -371,17 +377,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    private void lblDfsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseEntered
         // TODO add your handling code here:
-         jLabel5.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-         jLabel5.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_jLabel5MouseEntered
+         lblDfs.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+         lblDfs.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblDfsMouseEntered
 
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+    private void lblDfsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseExited
         // TODO add your handling code here:
-         jLabel5.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-         jLabel5.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jLabel5MouseExited
+         lblDfs.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+         lblDfs.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblDfsMouseExited
 
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
         // TODO add your handling code here:
@@ -470,6 +476,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void lblDfsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseClicked
+        JOptionPane.showMessageDialog(this, 
+        "Modo DFS activado.\nPor favor, haz clic en una ciudad del mapa para comenzar el recorrido profundo.", 
+        "Instrucciones", 
+        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+        panelMapa.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int clickX = e.getX();
+                int clickY = e.getY();
+                Localidad nodoInicio = null;
+
+                for (Localidad loc : grafo.getNodos()) {
+                    double distancia = Math.sqrt(Math.pow(clickX - loc.getX(), 2) + Math.pow(clickY - loc.getY(), 2));
+                    if (distancia <= (loc.getRadio() + 2)) {
+                        nodoInicio = loc;
+                        break; 
+                    }
+                }
+
+                if (nodoInicio != null) {              
+                    control.animarDFS(nodoInicio); // Llamamos al DFS
+                    panelMapa.removeMouseListener(this);
+                }
+            }
+        });
+    }//GEN-LAST:event_lblDfsMouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        JOptionPane.showMessageDialog(this, 
+        "Calculando el Árbol de Expansión Mínima (MST) con Kruskal...", 
+        "Kruskal", 
+        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+        control.animarKruskal();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -484,11 +528,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lblDfs;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelContenedor;
     private javax.swing.JPanel panelMenuLateral;

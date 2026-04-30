@@ -19,6 +19,9 @@ public class Localidad {
     public double distanciaMinima = Double.MAX_VALUE; // Para Dijkstra
     public Localidad antecesor; // Para reconstruir el camino
     public boolean visitado = false; // Para BFS/DFS
+    private int d; // Tiempo de descubrimiento
+    int f;
+    
     
     
     public Localidad(String nombre, int x, int y) {
@@ -115,7 +118,21 @@ public class Localidad {
     public void setVisitado(boolean visitado) {
         this.visitado = visitado;
     }
-    
-    
-    
+
+    public int getD() {
+        return d;
+    }
+
+    public void setD(int d) {
+        this.d = d;
+    }
+
+    public int getF() {
+        return f;
+    }
+
+    public void setF(int f) {
+        this.f = f;
+    }
+   
 }
