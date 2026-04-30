@@ -28,6 +28,15 @@ public class Carretera {
         g2d.setColor(colorActual);
         g2d.setStroke(new BasicStroke(grosor, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2d.drawLine(origen.x, origen.y, destino.x, destino.y);
+        
+        int xMedio = (origen.x + destino.x) / 2;
+        int yMedio = (origen.y + destino.y) / 2;
+
+        g2d.setColor(Color.BLACK); 
+        String valorPeso = String.valueOf(peso);
+
+        g2d.drawString(valorPeso, xMedio, yMedio);
+
     }
 
     public Localidad getOrigen() {

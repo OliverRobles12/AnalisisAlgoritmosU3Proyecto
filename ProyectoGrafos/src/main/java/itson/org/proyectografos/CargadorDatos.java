@@ -20,7 +20,7 @@ public class CargadorDatos {
         lista.add(new Localidad("Tapachula", 399, 632));         
         lista.add(new Localidad("San Cristóbal", 339, 281));    
         lista.add(new Localidad("Comitán", 431, 372));           
-        lista.add(new Localidad("Chiapa de Corzo", 267, 292));   
+        lista.add(new Localidad("Chiapa", 267, 292));   
         lista.add(new Localidad("Palenque", 491, 133));          
         lista.add(new Localidad("Cintalapa", 70, 280));        
         lista.add(new Localidad("Ocosingo", 593, 273));          
