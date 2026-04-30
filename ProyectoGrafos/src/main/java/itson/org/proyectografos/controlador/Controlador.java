@@ -2,9 +2,11 @@
 package itson.org.proyectografos.controlador;
 
 import itson.org.proyectografos.Algoritmos;
+import itson.org.proyectografos.Carretera;
 import itson.org.proyectografos.Grafo;
 import itson.org.proyectografos.Localidad;
 import itson.org.proyectografos.PanelMapa;
+import java.util.List;
 
 /**
  *
@@ -35,38 +37,80 @@ public class Controlador {
         }).start();
     }  
     
-    /**
-     * Crea un hilo secundario para ejecutar el algoritmo DFS de forma animada.
-     * @param inicio Localidad desde donde empieza la exploración profunda.
-     */
-    public void animarDFS(Localidad inicio) {
-        // Usamos un hilo para que la animación fluya mientras el usuario ve el mapa
-        new Thread(() -> {
-            // Ejecutamos la lógica del DFS
-            Algoritmos.recorridoDFS(grafo, inicio, () -> {
-                panelMapa.repaint(); // Repintar
-                try {
-                    Thread.sleep(600); // 600 milisegundos de pausa entre cada paso
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                
-            });
-        }).start();
-    }
-    
-    
     public void animarKruskal() {
         new Thread(() -> {
-            // Llamamos al método desde Algoritmos y le pasamos el grafo
-            Algoritmos.kruskalMST(grafo, () -> {
+            List<Carretera> arbol = Algoritmos.kruskalMST(grafo, () -> {
                 panelMapa.repaint();
-                try {
-                    Thread.sleep(600); // 600ms de pausa para ver crecer el árbol
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                try { Thread.sleep(600); } catch (InterruptedException e) { e.printStackTrace(); }
             });
+
+            // --- ARMANDO EL FORMATO DEL REPORTE ---
+            StringBuilder reporte = new StringBuilder();
+            reporte.append("==================================================\n");
+            reporte.append("       ÁRBOL DE EXPANSIÓN MÍNIMA (KRUSKAL)        \n");
+            reporte.append("==================================================\n\n");
+            
+            // Encabezados de tabla alineados
+            // %-20s significa "String alineado a la izquierda con 20 espacios"
+            reporte.append(String.format("%-20s %-20s %-10s\n", "ORIGEN", "DESTINO", "DISTANCIA"));
+            reporte.append("--------------------------------------------------\n");
+            
+            double pesoTotal = 0;
+            for (Carretera c : arbol) {
+                String origen = c.getOrigen().getNombre();
+                String destino = c.getDestino().getNombre();
+                // Si el nombre es muy largo, lo cortamos a 18 caracteres para no romper la tabla
+                if(origen.length() > 18) origen = origen.substring(0, 15) + "...";
+                if(destino.length() > 18) destino = destino.substring(0, 15) + "...";
+                
+                reporte.append(String.format("%-20s %-20s %-10.2f\n", origen, destino, c.peso));
+                pesoTotal += c.peso;
+            }
+            
+            reporte.append("--------------------------------------------------\n");
+            reporte.append(String.format("%-41s %-10.2f\n", "DISTANCIA TOTAL DEL RECORRIDO ÓPTIMO:", pesoTotal));
+            reporte.append("==================================================\n");
+
+            // --- MOSTRAR LA NUEVA VENTANA ---
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                itson.org.proyectografos.presentacion.VentanaReporte ventana = 
+                    new itson.org.proyectografos.presentacion.VentanaReporte("Reporte de Kruskal", reporte.toString());
+                ventana.setVisible(true);
+            });
+            
+        }).start();
+    }
+
+    public void animarDFS(Localidad inicio) {
+        new Thread(() -> {
+            List<Localidad> recorrido = Algoritmos.recorridoDFS(grafo, inicio, () -> {
+                panelMapa.repaint(); 
+                try { Thread.sleep(600); } catch (InterruptedException e) { e.printStackTrace(); }
+            });
+
+            // --- ARMANDO EL FORMATO DEL REPORTE ---
+            StringBuilder reporte = new StringBuilder();
+            reporte.append("==================================================\n");
+            reporte.append("           RECORRIDO EN PROFUNDIDAD (DFS)         \n");
+            reporte.append("==================================================\n");
+            reporte.append("Punto de partida: ").append(inicio.getNombre()).append("\n");
+            reporte.append("--------------------------------------------------\n");
+            reporte.append(String.format("%-10s %-30s\n", "PASO", "CIUDAD VISITADA"));
+            reporte.append("--------------------------------------------------\n");
+            
+            for (int i = 0; i < recorrido.size(); i++) {
+                reporte.append(String.format("%-10d %-30s\n", (i + 1), recorrido.get(i).getNombre()));
+            }
+            reporte.append("==================================================\n");
+            reporte.append("Nodos totales visitados: ").append(recorrido.size()).append("\n");
+
+            // --- MOSTRAR LA NUEVA VENTANA ---
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                itson.org.proyectografos.presentacion.VentanaReporte ventana = 
+                    new itson.org.proyectografos.presentacion.VentanaReporte("Reporte DFS", reporte.toString());
+                ventana.setVisible(true);
+            });
+
         }).start();
     }
     
