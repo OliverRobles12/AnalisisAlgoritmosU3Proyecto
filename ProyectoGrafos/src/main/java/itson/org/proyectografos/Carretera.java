@@ -33,7 +33,7 @@ public class Carretera {
         int yMedio = (origen.y + destino.y) / 2;
 
         g2d.setColor(Color.BLACK); 
-        String valorPeso = String.valueOf(peso);
+        String valorPeso = String.valueOf((int)peso);
 
         g2d.drawString(valorPeso, xMedio, yMedio);
 
