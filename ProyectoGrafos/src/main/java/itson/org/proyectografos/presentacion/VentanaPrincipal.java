@@ -179,6 +179,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel17.setText("Reportes");
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel17MouseEntered(evt);
             }
@@ -545,6 +548,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        control.mostrarReporteComplejidad();
+    }//GEN-LAST:event_jLabel17MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

@@ -183,4 +183,39 @@ public class Controlador {
         }).start();
     }
     
+    public void mostrarReporteComplejidad() {
+        StringBuilder reporte = new StringBuilder();
+        reporte.append("==============================================================\n");
+        reporte.append("           REPORTE GENERAL DE COMPLEJIDAD TEMPORAL            \n");
+        reporte.append("==============================================================\n\n");
+
+        reporte.append("1. Búsqueda en Anchura (BFS)\n");
+        reporte.append("   - Complejidad: O(V + E)\n");
+        reporte.append("   - Análisis: Visita cada vértice (V) y evalúa cada arista (E)\n");
+        reporte.append("     exactamente una vez en el peor de los casos.\n\n");
+
+        reporte.append("2. Búsqueda en Profundidad (DFS)\n");
+        reporte.append("   - Complejidad: O(V + E)\n");
+        reporte.append("   - Análisis: Al igual que BFS, recorre exhaustivamente \n");
+        reporte.append("     todos los nodos y sus conexiones directas.\n\n");
+
+        reporte.append("3. Árbol de Expansión Mínima (Kruskal)\n");
+        reporte.append("   - Complejidad: O(E log E) u O(E log V)\n");
+        reporte.append("   - Análisis: La operación más costosa es ordenar las aristas\n");
+        reporte.append("     por peso. El uso de la estructura Union-Find hace que la\n");
+        reporte.append("     detección de ciclos sea casi constante.\n\n");
+
+        reporte.append("4. Ruta Más Corta (Dijkstra)\n");
+        reporte.append("   - Complejidad: O((V + E) log V)\n");
+        reporte.append("   - Análisis: Depende del uso de una Cola de Prioridad. Extraer\n");
+        reporte.append("     el mínimo toma O(log V) y evaluar las aristas toma O(E).\n");
+        reporte.append("==============================================================\n");
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            itson.org.proyectografos.presentacion.VentanaReporte ventana = 
+                new itson.org.proyectografos.presentacion.VentanaReporte("Reporte de Complejidad", reporte.toString());
+            ventana.setVisible(true);
+        });
+    }
+    
 }
