@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Controlador {
 
-    public final Integer TIEMPO_ESPERA = 600;
+    public final Integer TIEMPO_ESPERA = 200;
     
     private PanelMapa panelMapa;
     private Grafo grafo;
@@ -143,38 +143,52 @@ public class Controlador {
      * Crea un hilo secundario para ejecutar el algoritmo de Dijkstra.
      * @param inicio Localidad desde donde se calcularán las rutas mas cortas.
      */
-    public void animarDijkstra(Localidad inicio) {
+    public void animarDijkstra(Localidad inicio, Localidad destino) {
         new Thread(() -> {
-            Map<Localidad, Double> distancias =  Algoritmos.dijkstra(grafo, inicio, () -> {
+            Map<Localidad, Double> distancias = Algoritmos.dijkstra(grafo, inicio, destino, () -> {
                 panelMapa.repaint();
                 try {
-                    Thread.sleep(TIEMPO_ESPERA); // Pausa para ver la exploración
+                    Thread.sleep(TIEMPO_ESPERA); 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             });
 
-            // --- ARMANDO EL FORMATO DEL REPORTE ---
             StringBuilder reporte = new StringBuilder();
             reporte.append("==================================================\n");
             reporte.append("      RUTA MÁS CORTA (ALGORITMO DE DIJKSTRA)      \n");
             reporte.append("==================================================\n");
-            reporte.append("Punto de partida: ").append(inicio.getNombre()).append("\n");
-            reporte.append("--------------------------------------------------\n");
-            reporte.append(String.format("%-30s %-15s\n", "DESTINO", "DISTANCIA MÍNIMA"));
-            reporte.append("--------------------------------------------------\n");
-            
-            for (Map.Entry<Localidad, Double> entrada : distancias.entrySet()) {
-                String destino = entrada.getKey().getNombre();
-                if(destino.length() > 28) destino = destino.substring(0, 25) + "..."; // Evitar que se rompa la tabla
-                Double distanciaMinima = entrada.getValue();
+
+            if (distancias.containsKey(destino)) {
+                reporte.append("Origen:  ").append(inicio.getNombre()).append("\n");
+                reporte.append("Destino: ").append(destino.getNombre()).append("\n");
+                reporte.append("Distancia Mínima: ").append(String.format("%.2f", distancias.get(destino))).append("\n");
+                reporte.append("--------------------------------------------------\n");
+
+                java.util.List<String> camino = new java.util.ArrayList<>();
+                Localidad paso = destino;
+                while (paso != null) {
+                    camino.add(0, paso.getNombre()); 
+                    paso = paso.getAntecesor();
+                }
+
+                reporte.append("Ruta a seguir:\n");
+                for (int i = 0; i < camino.size(); i++) {
+                    reporte.append("  ").append(camino.get(i)).append("\n");
+
+                    if (i < camino.size() - 1) {
+                        reporte.append("   v\n"); 
+                    }
+                }
                 
-                reporte.append(String.format("%-30s %-15.2f\n", destino, distanciaMinima));
+
+            } else {
+                reporte.append("No se encontró una ruta accesible entre \n");
+                reporte.append(inicio.getNombre()).append(" y ").append(destino.getNombre()).append(".\n");
             }
 
             reporte.append("==================================================\n");
 
-            // --- MOSTRAR LA NUEVA VENTANA ---
             javax.swing.SwingUtilities.invokeLater(() -> {
                 itson.org.proyectografos.presentacion.VentanaReporte ventana = 
                     new itson.org.proyectografos.presentacion.VentanaReporte("Reporte Dijkstra", reporte.toString());

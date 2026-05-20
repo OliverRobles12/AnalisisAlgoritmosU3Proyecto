@@ -59,17 +59,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         panelMenuLateral = new javax.swing.JPanel();
         panelBotones = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        lblDfs = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblBFS = new javax.swing.JLabel();
+        lblDFS = new javax.swing.JLabel();
+        lblKruskal = new javax.swing.JLabel();
+        lblDijkstra = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        lblReportes = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -91,59 +91,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelBotones.setOpaque(false);
         panelBotones.setPreferredSize(new java.awt.Dimension(180, 100));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("BFS");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBFS.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblBFS.setText("BFS");
+        lblBFS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                lblBFSMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
+                lblBFSMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
+                lblBFSMouseExited(evt);
             }
         });
 
-        lblDfs.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDfs.setText("DFS");
-        lblDfs.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDFS.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDFS.setText("DFS");
+        lblDFS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblDfsMouseClicked(evt);
+                lblDFSMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblDfsMouseEntered(evt);
+                lblDFSMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblDfsMouseExited(evt);
+                lblDFSMouseExited(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel6.setText("Krustal");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblKruskal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblKruskal.setText("Krustal");
+        lblKruskal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                lblKruskalMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
+                lblKruskalMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel6MouseExited(evt);
+                lblKruskalMouseExited(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel10.setText("Dijkstra");
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDijkstra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDijkstra.setText("Dijkstra");
+        lblDijkstra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                lblDijkstraMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel10MouseEntered(evt);
+                lblDijkstraMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel10MouseExited(evt);
+                lblDijkstraMouseExited(evt);
             }
         });
 
@@ -176,17 +176,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel17.setText("Reportes");
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblReportes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblReportes.setText("Reportes");
+        lblReportes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
+                lblReportesMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel17MouseEntered(evt);
+                lblReportesMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel17MouseExited(evt);
+                lblReportesMouseExited(evt);
             }
         });
 
@@ -232,7 +232,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
@@ -243,10 +243,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(lblDfs, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblBFS, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDijkstra, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(lblDFS, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblKruskal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -262,23 +262,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel11)
                 .addGap(2, 2, 2)
-                .addComponent(jLabel4)
+                .addComponent(lblBFS)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDfs)
+                .addComponent(lblDFS)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(lblKruskal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(lblDijkstra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
+                .addComponent(lblReportes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(14, 14, 14))
@@ -356,17 +356,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jLabel16MouseExited
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+    private void lblBFSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBFSMouseEntered
         // TODO add your handling code here:
-        jLabel4.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-        jLabel4.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_jLabel4MouseEntered
+        lblBFS.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+        lblBFS.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblBFSMouseEntered
 
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
+    private void lblBFSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBFSMouseExited
         // TODO add your handling code here:
-        jLabel4.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-        jLabel4.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jLabel4MouseExited
+        lblBFS.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+        lblBFS.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblBFSMouseExited
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
         // TODO add your handling code here:
@@ -383,53 +383,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void lblDfsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseEntered
+    private void lblDFSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDFSMouseEntered
         // TODO add your handling code here:
-         lblDfs.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-         lblDfs.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_lblDfsMouseEntered
+         lblDFS.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+         lblDFS.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblDFSMouseEntered
 
-    private void lblDfsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseExited
+    private void lblDFSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDFSMouseExited
         // TODO add your handling code here:
-         lblDfs.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-         lblDfs.setForeground(Color.BLACK);
-    }//GEN-LAST:event_lblDfsMouseExited
+         lblDFS.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+         lblDFS.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblDFSMouseExited
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+    private void lblKruskalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKruskalMouseEntered
         // TODO add your handling code here:
-         jLabel6.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-         jLabel6.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_jLabel6MouseEntered
+         lblKruskal.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+         lblKruskal.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblKruskalMouseEntered
 
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+    private void lblKruskalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKruskalMouseExited
         // TODO add your handling code here:
-         jLabel6.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-         jLabel6.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jLabel6MouseExited
+         lblKruskal.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+         lblKruskal.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblKruskalMouseExited
 
-    private void jLabel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseEntered
+    private void lblDijkstraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDijkstraMouseEntered
         // TODO add your handling code here:
-         jLabel10.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-         jLabel10.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_jLabel10MouseEntered
+         lblDijkstra.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+         lblDijkstra.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblDijkstraMouseEntered
 
-    private void jLabel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseExited
+    private void lblDijkstraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDijkstraMouseExited
         // TODO add your handling code here:
-         jLabel10.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-         jLabel10.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jLabel10MouseExited
+         lblDijkstra.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+         lblDijkstra.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblDijkstraMouseExited
 
-    private void jLabel17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseEntered
+    private void lblReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportesMouseEntered
         // TODO add your handling code here:
-         jLabel17.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
-         jLabel17.setForeground(Color.decode("#c9a163"));
-    }//GEN-LAST:event_jLabel17MouseEntered
+         lblReportes.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 18));
+         lblReportes.setForeground(Color.decode("#c9a163"));
+    }//GEN-LAST:event_lblReportesMouseEntered
 
-    private void jLabel17MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseExited
+    private void lblReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportesMouseExited
         // TODO add your handling code here:
-         jLabel17.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
-         jLabel17.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jLabel17MouseExited
+         lblReportes.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+         lblReportes.setForeground(Color.BLACK);
+    }//GEN-LAST:event_lblReportesMouseExited
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
         // TODO add your handling code here:
@@ -451,7 +451,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel7MouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void lblBFSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBFSMouseClicked
         JOptionPane.showMessageDialog(this, 
         "Modo BFS activado.\nPor favor, haz clic en una ciudad del mapa para comenzar.", 
         "Instrucciones", 
@@ -480,9 +480,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_lblBFSMouseClicked
 
-    private void lblDfsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDfsMouseClicked
+    private void lblDFSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDFSMouseClicked
         JOptionPane.showMessageDialog(this, 
         "Modo DFS activado.\nPor favor, haz clic en una ciudad del mapa para comenzar el recorrido profundo.", 
         "Instrucciones", 
@@ -509,69 +509,97 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_lblDfsMouseClicked
+    }//GEN-LAST:event_lblDFSMouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void lblKruskalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKruskalMouseClicked
         JOptionPane.showMessageDialog(this, 
         "Calculando el Árbol de Expansión Mínima (MST) con Kruskal...", 
         "Kruskal", 
         javax.swing.JOptionPane.INFORMATION_MESSAGE);
         
         control.animarKruskal();
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_lblKruskalMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        JOptionPane.showMessageDialog(this, 
-        "Modo DIJKSTRA activado.\nPor favor, haz clic en una ciudad del mapa para comenzar el recorrido de ruta mas corta.", 
-        "Instrucciones", 
-        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    private void lblDijkstraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDijkstraMouseClicked
         
+        JOptionPane.showMessageDialog(this,
+                "Modo DIJKSTRA activado.\nPor favor, haz clic en una ciudad para seleccionar el NODO DE ORIGEN.",
+                "Instrucciones",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
         panelMapa.addMouseListener(new MouseAdapter() {
+
+            private Localidad nodoInicio = null; 
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 int clickX = e.getX();
                 int clickY = e.getY();
-                Localidad nodoInicio = null;
+                Localidad nodoClickeado = null;
 
                 for (Localidad loc : grafo.getNodos()) {
                     double distancia = Math.sqrt(Math.pow(clickX - loc.getX(), 2) + Math.pow(clickY - loc.getY(), 2));
                     if (distancia <= (loc.getRadio() + 2)) {
-                        nodoInicio = loc;
-                        break; 
+                        nodoClickeado = loc;
+                        break;
                     }
                 }
 
-                if (nodoInicio != null) {              
-                    control.animarDijkstra(nodoInicio); // Llamamos al DFS
-                    panelMapa.removeMouseListener(this);
+                if (nodoClickeado != null) {
+
+                    if (nodoInicio == null) {
+                        nodoInicio = nodoClickeado;
+
+                        JOptionPane.showMessageDialog(null, 
+                            "Origen seleccionado correctamente.\nAhora haz clic en la ciudad DESTINO.", 
+                            "Paso 2: Destino", 
+                            JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        Localidad nodoDestino = nodoClickeado;
+
+                        if (nodoInicio.equals(nodoDestino)) {
+                            JOptionPane.showMessageDialog(null,
+                                "El nodo destino no puede ser igual al de origen. Intenta con otra ciudad.",
+                                "Atención",
+                                JOptionPane.WARNING_MESSAGE);
+                            return; 
+                        }
+
+                        control.animarDijkstra(nodoInicio, nodoDestino); 
+
+                        panelMapa.removeMouseListener(this); 
+                    }
                 }
             }
         });
-    }//GEN-LAST:event_jLabel10MouseClicked
+        
+        
+        
+    }//GEN-LAST:event_lblDijkstraMouseClicked
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+    private void lblReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportesMouseClicked
         control.mostrarReporteComplejidad();
-    }//GEN-LAST:event_jLabel17MouseClicked
+    }//GEN-LAST:event_lblReportesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lblDfs;
+    private javax.swing.JLabel lblBFS;
+    private javax.swing.JLabel lblDFS;
+    private javax.swing.JLabel lblDijkstra;
+    private javax.swing.JLabel lblKruskal;
+    private javax.swing.JLabel lblReportes;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelContenedor;
     private javax.swing.JPanel panelMenuLateral;
